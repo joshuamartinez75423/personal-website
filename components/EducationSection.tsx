@@ -1,28 +1,37 @@
+import Image from "next/image";
 import { education } from "@/content/site";
 import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
 
 export default function EducationSection() {
   return (
     <section className="section" id="education">
       <Reveal>
-        <h2 className="section-title">Education</h2>
+        <SectionHeader number="05" title="Education" />
       </Reveal>
       <Reveal delay={0.08}>
-        <div className="education-card">
-          <div className="experience-header">
+        <div className="edu-top">
+          <div className="edu-school-wrap">
+            <Image
+              src="/nebraska-n.svg"
+              alt="University of Nebraska logo"
+              width={46}
+              height={46}
+              className="edu-logo"
+            />
             <div>
-              <h3 className="experience-role">{education.school}</h3>
-              <p className="experience-company">{education.degree}</p>
-            </div>
-            <div className="experience-meta">
-              <span>{education.graduation}</span>
-              {education.details.map((d) => (
-                <span key={d}>{d}</span>
-              ))}
+              <h3 className="edu-school">{education.school}</h3>
+              <p className="edu-degree">{education.degree}</p>
             </div>
           </div>
-          <h4 className="education-subhead">Involvement</h4>
-          <ul className="experience-highlights">
+          <div className="exp-meta">
+            <span>{education.graduation}</span>
+          </div>
+        </div>
+        <p className="edu-stats">{education.details.join("  ·  ")}</p>
+        <div className="skills-row edu-involvement">
+          <span className="skills-cat">Involvement</span>
+          <ul className="edu-inv-list">
             {education.involvement.map((item) => (
               <li key={item}>{item}</li>
             ))}

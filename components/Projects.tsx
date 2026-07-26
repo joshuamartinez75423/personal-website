@@ -1,17 +1,23 @@
 import { projects } from "@/content/site";
-import ProjectCard from "./ProjectCard";
 import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
 
 export default function Projects() {
   return (
     <section className="section" id="projects">
       <Reveal>
-        <h2 className="section-title">Projects</h2>
+        <SectionHeader number="03" title="Projects" />
       </Reveal>
-      <div className="projects-grid">
+      <div>
         {projects.map((project, i) => (
           <Reveal key={project.title} delay={i * 0.08}>
-            <ProjectCard project={project} />
+            <article className="proj-entry">
+              <h3 className="proj-title">{project.title}</h3>
+              {project.tech.length > 0 && (
+                <p className="proj-tech">{project.tech.join(" / ")}</p>
+              )}
+              <p className="proj-desc">{project.description}</p>
+            </article>
           </Reveal>
         ))}
       </div>

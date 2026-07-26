@@ -9,6 +9,15 @@ const MAX_INPUT_LENGTH = 500;
 /** Only the most recent turns are sent — keeps request cost bounded. */
 const HISTORY_LIMIT = 8;
 
+const SUGGESTED_QUESTIONS = [
+  { label: "Best project?", question: "What's Joshua's best project?" },
+  {
+    label: "His experience?",
+    question: "What internship experience does Joshua have?",
+  },
+  { label: "Why hire him?", question: "Why should I hire Joshua?" },
+];
+
 export default function ChatWidget() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
@@ -24,7 +33,10 @@ export default function ChatWidget() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    const question = input.trim();
+    await sendMessage(input.trim());
+  }
+
+  async function sendMessage(question: string) {
     if (!question || isLoading) return;
 
     setError(null);
@@ -74,8 +86,6 @@ export default function ChatWidget() {
 
   return (
     <div className="chat-box">
-      <p className="chat-label">{site.chatPrompt}</p>
-
       {messages.length > 0 && (
         <div className="chat-messages" ref={messagesRef}>
           {messages.map((m, i) => (
@@ -108,11 +118,37 @@ export default function ChatWidget() {
         </button>
       </form>
 
+      {messages.length === 0 && (
+        <div className="chat-chips">
+          {SUGGESTED_QUESTIONS.map(({ label, question }) => (
+            <button
+              key={label}
+              type="button"
+              className="chat-chip"
+              onClick={() => sendMessage(question)}
+              disabled={isLoading}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {error && <p className="chat-error">{error}</p>}
-      <p className="chat-note">
-        AI answers based on Joshua&apos;s site, resume, and GitHub — may not be
-        perfect.
-      </p>
+      {messages.length > 0 && (
+      <details className="chat-how">
+        <summary>Built by Joshua — how does this work?</summary>
+        <p>
+          Your question goes to a Next.js API route that validates and
+          rate-limits it, then streams a reply from Google&apos;s Gemini model.
+          The system prompt is generated from the same typed content that
+          renders this site, so the assistant and the page can never disagree.{" "}
+          <a href={site.repoUrl} target="_blank" rel="noopener noreferrer">
+            Source on GitHub ↗
+          </a>
+        </p>
+      </details>
+      )}
     </div>
   );
 }

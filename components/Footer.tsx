@@ -70,6 +70,12 @@ export default function Footer() {
           </a>
         ))}
       </div>
+      <p className="footer-colophon">
+        Designed &amp; built by {site.name} — Next.js · TypeScript · Gemini.{" "}
+        <a href={site.repoUrl} target="_blank" rel="noopener noreferrer">
+          Source ↗
+        </a>
+      </p>
       <p className="footer-copy">
         © {new Date().getFullYear()} {site.name}
       </p>

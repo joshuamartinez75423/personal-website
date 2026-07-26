@@ -1,20 +1,21 @@
 import { skillGroups } from "@/content/site";
 import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
 
 export default function SkillsSection() {
   return (
     <section className="section" id="skills">
       <Reveal>
-        <h2 className="section-title">Skills</h2>
+        <SectionHeader number="04" title="Skills" />
       </Reveal>
-      <div className="skills-groups">
+      <div>
         {skillGroups.map((group, i) => (
-          <Reveal key={group.label} delay={i * 0.08}>
-            <div className="skills-group">
-              <h3 className="skills-group-label">{group.label}</h3>
-              <div className="skills-tags">
+          <Reveal key={group.label} delay={i * 0.06}>
+            <div className="skills-row">
+              <span className="skills-cat">{group.label}</span>
+              <div className="skills-items">
                 {group.items.map((item) => (
-                  <span className="tech-tag" key={item}>
+                  <span className="skills-item" key={item}>
                     {item}
                   </span>
                 ))}

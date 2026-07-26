@@ -1,17 +1,33 @@
 import { experiences } from "@/content/site";
-import ExperienceCard from "./ExperienceCard";
 import Reveal from "./Reveal";
+import SectionHeader from "./SectionHeader";
 
 export default function ExperienceSection() {
   return (
     <section className="section" id="experience">
       <Reveal>
-        <h2 className="section-title">Experience</h2>
+        <SectionHeader number="01" title="Experience" />
       </Reveal>
-      <div className="experience-list">
+      <div>
         {experiences.map((experience, i) => (
           <Reveal key={experience.company + experience.role} delay={i * 0.08}>
-            <ExperienceCard experience={experience} />
+            <article className="exp-entry">
+              <div className="exp-top">
+                <div>
+                  <h3 className="exp-role">{experience.role}</h3>
+                  <p className="exp-company">{experience.company}</p>
+                </div>
+                <div className="exp-meta">
+                  <span>{experience.dates}</span>
+                  <span>{experience.location}</span>
+                </div>
+              </div>
+              <ul className="exp-highlights">
+                {experience.highlights.map((h) => (
+                  <li key={h}>{h}</li>
+                ))}
+              </ul>
+            </article>
           </Reveal>
         ))}
       </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { site } from "@/content/site";
 import ChatWidget from "./ChatWidget";
@@ -14,37 +14,47 @@ const fadeUp = (delay: number) => ({
 });
 
 export default function Hero() {
+  // Photo scrolls slower than the page for a subtle parallax depth cue.
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 900], [0, 160]);
+
   return (
     <section className="hero" id="home">
-      <motion.div
-        className="hero-bg"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
-        aria-hidden="true"
-      >
-        <Image
-          src={site.headshot.src}
-          alt=""
-          fill
-          priority
-          sizes="(max-width: 900px) 100vw, 62vw"
-          className="hero-bg-img"
-        />
-        <div className="hero-bg-overlay" />
-      </motion.div>
+      <div className="hero-bg-frame" aria-hidden="true">
+        <motion.div
+          className="hero-bg"
+          style={{ y: bgY }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
+        >
+          <Image
+            src={site.headshot.src}
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 900px) 100vw, 62vw"
+            className="hero-bg-img"
+          />
+          <div className="hero-bg-overlay" />
+        </motion.div>
+      </div>
 
       <div className="hero-inner">
         <div className="hero-content">
-          <motion.h1 className="hero-name" {...fadeUp(0.1)}>
+          <motion.p className="hero-now" {...fadeUp(0.05)}>
+            {site.now}
+          </motion.p>
+
+          <motion.h1 className="hero-name" {...fadeUp(0.15)}>
             {site.name}
           </motion.h1>
 
-          <motion.p className="hero-bio" {...fadeUp(0.25)}>
+          <motion.p className="hero-bio" {...fadeUp(0.3)}>
             {site.bio}
           </motion.p>
 
-          <motion.div className="hero-chat" {...fadeUp(0.4)}>
+          <motion.div className="hero-chat" {...fadeUp(0.45)}>
             <ChatWidget />
           </motion.div>
         </div>

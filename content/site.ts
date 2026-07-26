@@ -80,9 +80,12 @@ export const site = {
     width: 800,
     height: 1000,
   },
-  bio: "I'm a Computer Science senior at the University of Nebraska–Lincoln, part of the Peter Kiewit Foundation Engineering Academy, majoring in Computer Science with a minor in Business. I've built software across internships at Blue Cross and Blue Shield of Nebraska, Assurity, and Quantum Workplace, from secure data APIs and resilient .NET services to large-scale performance testing.",
+  bio: "I chose computer science because it's like chasing a sunset: you can get closer, even stay with it a while, but it always sets — and a new day brings something new to learn. I'll never know everything; I can certainly try. I'm a CS senior at the University of Nebraska–Lincoln, minoring in Business, and I'm drawn to the intersection of the two — building things that leave a community genuinely better. Outside the terminal: wildlife conservation, and a lifelong soft spot for animals.",
   chatPrompt: "Ask a question about Joshua Martinez",
-  chatPlaceholder: "e.g. What has Joshua worked on?",
+  chatPlaceholder: "Ask anything about Joshua…",
+  // TODO: keep this line fresh — it's the "person in motion" signal.
+  now: "Currently: interning at Assurity, heading into my final year at UNL, and building this site.",
+  repoUrl: "https://github.com/joshuamartinez75423/personal-website",
 } as const;
 
 export const links: ExternalLink[] = [
@@ -228,5 +231,11 @@ export const projects: Project[] = [
     tech: ["C#", ".NET", "React", "Next.js", "CSS", "MS SQL"],
     description:
       "Collaborated in a team of 6 to design and develop a full-stack card game web app featuring Blackjack and Solitaire. Built using MVC architecture and SOLID principles for modular design, developed in an Agile environment with Scrum, sprint planning, and Git/GitHub version control.",
+  },
+  {
+    title: "This Website",
+    tech: ["Next.js", "TypeScript", "Framer Motion", "Gemini API"],
+    description:
+      "Designed and built from scratch — editorial dark design, scroll-driven animation, a self-hosted gameplay video pipeline, and an AI assistant that answers questions about me through a streaming Next.js API route with prompt guardrails and rate limiting. You're looking at it.",
   },
 ];
