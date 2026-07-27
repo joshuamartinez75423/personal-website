@@ -228,13 +228,17 @@ a {
   z-index: 2;
 }
 
-/* Full-height photo layer anchored to the right side of the viewport. */
+/* Full-height photo layer anchored to the right side of the viewport.
+   Its left edge fades to true transparency so the photo melts into the
+   animated background instead of ending in a painted rectangle. */
 .hero-bg {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   width: 62%;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 38%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 38%);
 }
 
 .hero-bg-img {
@@ -242,22 +246,20 @@ a {
   object-position: center 22%;
 }
 
-/* Gradients keep text readable and blend the photo into the page:
-   solid dark at the left edge (behind the text), a light tint over
-   the photo, and a bottom fade into the next section. */
+/* Tint only — edge blending is handled by masks (left: .hero-bg,
+   bottom: .hero-bg-frame), so this never paints an opaque wall. */
 .hero-bg-overlay {
   position: absolute;
   inset: 0;
   background:
     linear-gradient(
       90deg,
-      var(--bg) 0%,
-      rgba(5, 6, 7, 0.72) 30%,
-      rgba(5, 6, 7, 0.28) 65%,
-      rgba(5, 6, 7, 0.45) 100%
+      rgba(5, 6, 7, 0.6) 0%,
+      rgba(5, 6, 7, 0.35) 45%,
+      rgba(5, 6, 7, 0.2) 70%,
+      rgba(5, 6, 7, 0.4) 100%
     ),
-    linear-gradient(180deg, rgba(5, 6, 7, 0.35) 0%, transparent 25%),
-    linear-gradient(180deg, transparent 65%, var(--bg) 100%);
+    linear-gradient(180deg, rgba(5, 6, 7, 0.35) 0%, transparent 25%);
 }
 
 .hero-inner {
@@ -284,6 +286,9 @@ a {
 @media (max-width: 900px) {
   .hero-bg {
     width: 100%;
+    /* Full-bleed backdrop on mobile — no left fade needed. */
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 
   /* Photo spans the whole viewport on small screens, so darken it

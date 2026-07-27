@@ -78,8 +78,11 @@ export async function POST(req: Request) {
     async start(controller) {
       try {
         const stream = await ai.models.generateContentStream({
-          // Alias that tracks the current stable Gemini Flash model.
-          model: "gemini-flash-latest",
+          // Pinned rather than "gemini-flash-latest": the alias points at the
+          // newest Flash, and brand-new models get tiny free-tier daily
+          // quotas (3.6-flash: 20/day). One generation back keeps the
+          // mature quota. (2.5-flash is closed to new accounts.)
+          model: "gemini-3.5-flash",
           contents: messages.map((m) => ({
             role: m.role === "assistant" ? "model" : "user",
             parts: [{ text: m.content }],
@@ -94,8 +97,16 @@ export async function POST(req: Request) {
         }
       } catch (err) {
         console.error("Chat stream error:", err);
+        const isQuota =
+          typeof err === "object" &&
+          err !== null &&
+          (err as { status?: number }).status === 429;
         controller.enqueue(
-          encoder.encode("\n\n[Sorry — something went wrong. Try again.]")
+          encoder.encode(
+            isQuota
+              ? "\n\n[The assistant is at its daily limit — please try again later, or reach Joshua via the links below.]"
+              : "\n\n[Sorry — something went wrong. Try again.]"
+          )
         );
       }
       controller.close();
