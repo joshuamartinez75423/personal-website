@@ -10,7 +10,7 @@ export default function FeaturedProjectSection() {
   return (
     <section className="section" id="featured">
       <Reveal>
-        <SectionHeader number="02" title="Featured Project" />
+        <SectionHeader title="Featured Project" />
         <h3 className="featured-name">{title}</h3>
         <p className="featured-tagline">{tagline}</p>
       </Reveal>

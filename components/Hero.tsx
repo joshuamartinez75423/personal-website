@@ -42,19 +42,17 @@ export default function Hero() {
 
       <div className="hero-inner">
         <div className="hero-content">
-          <motion.p className="hero-now" {...fadeUp(0.05)}>
-            {site.now}
-          </motion.p>
-
-          <motion.h1 className="hero-name" {...fadeUp(0.15)}>
+          {/* id is the hook TopBar watches to decide when its own
+              wordmark should fade in — see components/TopBar.tsx. */}
+          <motion.h1 id="hero-name" className="hero-name" {...fadeUp(0.05)}>
             {site.name}
           </motion.h1>
 
-          <motion.p className="hero-bio" {...fadeUp(0.3)}>
+          <motion.p className="hero-bio" {...fadeUp(0.2)}>
             {site.bio}
           </motion.p>
 
-          <motion.div className="hero-chat" {...fadeUp(0.45)}>
+          <motion.div className="hero-chat" {...fadeUp(0.35)}>
             <ChatWidget />
           </motion.div>
         </div>

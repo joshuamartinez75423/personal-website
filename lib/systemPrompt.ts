@@ -15,7 +15,7 @@ import {
  */
 const githubSnapshot = `
 Public repositories:
-- noah-ark — C#, Unity. Team fork of the N.O.A.H Ark VR game (contributors include Ada, Jude, Joshua, Jina). Joshua's contributions are described in the featured project section below.
+- noah-ark — C#, Unity. Team repository for Project N.O.A.H, the single-player VR game (contributors include Ada, Jude, Joshua, Jina). Joshua's contributions are described in the featured project section below.
 - vr-punchgolf-simulator — VR Punch Golf project, built by Joshua and Asher.
 - Roll-a-Ball — C#, Unity. A small Unity learning project.
 `.trim();

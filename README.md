@@ -26,16 +26,17 @@ app/
   page.tsx          Composes the page sections
   globals.css       Theme variables and all styling
 components/
-  AnimatedBackground.tsx   Drifting blue/green gradient blobs
-  TopBar.tsx               Fixed nav — name left, section links right
+  AnimatedBackground.tsx   Drifting grey gradient blobs
+  TopBar.tsx               Fixed nav — sections left, wordmark centred,
+                           LinkedIn / GitHub / Email right
   Hero.tsx                 Landing section (photo backdrop, name, bio, chat)
-  ChatPlaceholder.tsx      "Ask a question" UI (AI chatbot coming later)
-  FeaturedProjectSection.tsx  N.O.A.H Ark spotlight with YouTube demo
+  ChatWidget.tsx           "Ask a question" UI wired to the Gemini route
+  FeaturedProjectSection.tsx  Project N.O.A.H spotlight with looping demo clip
   Projects.tsx             Project showcase grid
-  ProjectCard.tsx          Single project card
   SkillsSection.tsx        Grouped skill tags
   EducationSection.tsx     Degree, GPA, involvement
-  Footer.tsx               LinkedIn / GitHub / Resume / Email icons + copyright
+  Footer.tsx               Colophon + copyright
+  SocialIcon.tsx           Glyphs for the top bar's external links
   Reveal.tsx               Scroll-into-view fade-up wrapper
 content/
   site.ts           All site content (bio, links, projects) — edit here
@@ -53,6 +54,4 @@ in `content/site.ts`.
 
 ## TODO
 
-- [ ] Add description/tech for VR Punch Golf in `content/site.ts`
-- [ ] Drop `resume.pdf` into `public/`
 - [ ] Wire the chat UI to an AI backend (Next.js API route)

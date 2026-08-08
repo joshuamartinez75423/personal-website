@@ -3,10 +3,9 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 
 /**
- * Fixed background: two blue depth fields plus one small warm ember,
- * gently parallaxed by scroll, under a faint film-grain layer.
- * Idle drift comes from CSS keyframes on the inner blob; scroll motion is
- * applied to the wrapper so the two transforms never conflict.
+ * Fixed background: three soft grey depth fields, gently parallaxed by
+ * scroll. Idle drift comes from CSS keyframes on the inner blob; scroll
+ * motion is applied to the wrapper so the two transforms never conflict.
  */
 export default function AnimatedBackground() {
   const { scrollYProgress } = useScroll();
@@ -47,8 +46,6 @@ export default function AnimatedBackground() {
       >
         <div className="bg-blob bg-blob--ember" />
       </motion.div>
-
-      <div className="bg-grain" />
     </div>
   );
 }

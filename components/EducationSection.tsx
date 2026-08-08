@@ -7,7 +7,7 @@ export default function EducationSection() {
   return (
     <section className="section" id="education">
       <Reveal>
-        <SectionHeader number="05" title="Education" />
+        <SectionHeader title="Education" />
       </Reveal>
       <Reveal delay={0.08}>
         <div className="edu-top">

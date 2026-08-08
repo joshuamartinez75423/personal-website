@@ -8,7 +8,7 @@ export type ExternalLink = {
   desc: string;
   href: string;
   /** Which icon the footer renders for this link. */
-  icon: "linkedin" | "github" | "resume" | "email";
+  icon: "linkedin" | "github" | "email";
 };
 
 export type SkillGroup = {
@@ -48,6 +48,10 @@ export type Experience = {
   company: string;
   location: string;
   dates: string;
+  /** Square logo in /public/logos, shown as a rounded tile on the timeline. */
+  logo: string;
+  /** Tile background — only needed when the logo has a transparent bg. */
+  logoBg?: string;
   highlights: string[];
 };
 
@@ -77,14 +81,12 @@ export const site = {
   headshot: {
     src: "/headshot.jpg",
     alt: "Headshot of Joshua Martinez",
-    width: 800,
-    height: 1000,
+    width: 1200,
+    height: 1200,
   },
-  bio: "I chose computer science because it's like chasing a sunset: you can get closer, even stay with it a while, but it always sets — and a new day brings something new to learn. I'll never know everything; I can certainly try. I'm a CS senior at the University of Nebraska–Lincoln, minoring in Business, and I'm drawn to the intersection of the two — building things that leave a community genuinely better. Outside the terminal: wildlife conservation, and a lifelong soft spot for animals.",
+  bio: "Hello, and welcome to my website! I'm a Computer Science senior at the University of Nebraska–Lincoln, minoring in Business, and a member of the Peter Kiewit Engineering Academy. This site collects and combines my professional experiences. Scroll to explore, or ask my AI assistant anything about me.",
   chatPrompt: "Ask a question about Joshua Martinez",
   chatPlaceholder: "Ask anything about Joshua…",
-  // TODO: keep this line fresh — it's the "person in motion" signal.
-  now: "Currently: interning at Assurity, heading into my final year at UNL, and building this site.",
   repoUrl: "https://github.com/joshuamartinez75423/personal-website",
 } as const;
 
@@ -102,12 +104,6 @@ export const links: ExternalLink[] = [
     icon: "github",
   },
   {
-    title: "Resume",
-    desc: "View my full resume.",
-    href: "/resume.pdf", // TODO: drop resume.pdf into /public
-    icon: "resume",
-  },
-  {
     title: "Email",
     desc: "Get in touch directly.",
     href: "mailto:jmartinez75423@gmail.com",
@@ -116,21 +112,21 @@ export const links: ExternalLink[] = [
 ];
 
 export const featuredProject: FeaturedProject = {
-  title: "N.O.A.H Ark",
-  tagline: "A collaborative Unity VR game — I owned the Arctic biome end to end.",
+  title: "Project N.O.A.H",
+  tagline:
+    "A single-player Unity VR game",
   tech: ["Unity", "C#", "SteamVR", "XR Interaction Toolkit", "Git/GitHub"],
   overview:
-    "N.O.A.H Ark is a multi-contributor VR game built in Unity, where players work to stabilize failing biomes aboard an ark. I developed the Arctic biome from the ground up and helped carry the project through final integration.",
+    "Project N.O.A.H is a single-player VR game built in Unity by a small team, where the player works to stabilize failing biomes aboard the ark. I developed the Arctic biome from the ground up and helped carry the project through final integration.",
   contributions: [
     "Authored 13 C# scripts driving the biome's interactive systems — temperature faults, alarm and wiring puzzles, and environmental melting — and integrated them with the game's global state.",
     "Identified that the game had no lose condition, pitched the fix to the team, and designed and implemented the lose scenario that completed the win/lose loop.",
     "Directed the game's ending sequence and the full playthrough demo video.",
-    "Resolved 20+ merge conflicts and cross-system bugs across 100+ commits to keep the shared Unity/SteamVR codebase stable through final integration.",
   ],
   lessons: [
     "How to keep individually-owned systems compatible with a shared global state in a multi-contributor codebase.",
-    "Spotting design gaps — not just building what's assigned, but noticing what's missing and making the case to fix it.",
-    "Practical Git collaboration under pressure: frequent integration beats big-bang merges.",
+    "Spotting design gaps, not just building what's assigned, but noticing what's missing and making the case to fix it.",
+    "Building for VR in Unity with SteamVR, designing interactions that read clearly in a headset, where scale, sightlines, and player attention behave differently than they do on a screen.",
   ],
   clipSrc: "/noah-demo.mp4",
   fullVideoUrl: "https://www.youtube.com/watch?v=iv4HJJ_lASA",
@@ -180,9 +176,10 @@ export const education: Education = {
 export const experiences: Experience[] = [
   {
     role: "Software Engineer Intern",
-    company: "Blue Cross and Blue Shield of Nebraska",
+    company: "Blue Cross Blue Shield of Nebraska",
     location: "Omaha, NE (Hybrid)",
     dates: "June 2026 – July 2026",
+    logo: "/logos/bcbsne.png",
     highlights: [
       "Integrated a Lakebase Data API through Databricks via a secure server-side proxy, querying up to 500 archetype records per request with zero browser credential exposure.",
       "Co-led spec-driven development of a multi-tier, rule-based and machine-learning classification engine to segment 210k+ members into behavioral personas.",
@@ -192,7 +189,8 @@ export const experiences: Experience[] = [
     role: "Software Developer Intern",
     company: "Assurity",
     location: "Lincoln, NE (Remote)",
-    dates: "October 2025 – Present",
+    dates: "October 2025 – May 2026",
+    logo: "/logos/assurity.png",
     highlights: [
       "Built end-to-end logging and tracking in C# and ASP.NET for a distributed claims system, making each request traceable across background jobs and multiple services.",
       "Implemented system resilience features with the Polly framework to ensure high availability and application stability.",
@@ -204,6 +202,7 @@ export const experiences: Experience[] = [
     company: "Quantum Workplace",
     location: "Omaha, NE (Hybrid)",
     dates: "June 2025 – October 2025",
+    logo: "/logos/quantum.png",
     highlights: [
       "Developed and automated performance and UI test cases in JavaScript using Cypress, with load testing in JMeter, to validate enterprise software at scale.",
       "Grew UI test coverage 14% and expanded performance test scenarios 6.2× in the Azure DevOps CI/CD pipeline.",
@@ -214,17 +213,16 @@ export const experiences: Experience[] = [
 
 export const projects: Project[] = [
   {
-    title: "VR Punch Golf",
-    tech: [],
-    // TODO: add real description and tech stack
+    title: "VR Punch Golf Simulator",
+    tech: ["Unity", "C#", "SteamVR", "Autodesk Maya"],
     description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "A VR golf game in which the ball is punched rather than hit with a club. A punch thrown at the ball sends it down the course, where it rolls farther on the fairway than in the rough before dropping into the cup. Strokes are scored using standard golf terms, and the game runs on any PC VR headset.",
   },
   {
     title: "Electronic Combination Lock",
-    tech: ["C", "CowPi"],
+    tech: ["C", "Raspberry Pi Pico", "PlatformIO", "CowPi"],
     description:
-      "Created with 2 others: an embedded lock system integrating a servomotor, rotary encoder, and persistent storage. Delivers real-time feedback and multi-step validation for secure access.",
+      "An embedded combination lock built on a Raspberry Pi Pico. A three-number combination is dialed on a rotary knob, an OLED screen shows progress, LEDs indicate the lock state, and a servo throws the bolt when the combination is correct. Three incorrect attempts trigger a permanent alarm state, and the combination can be changed on the device.",
   },
   {
     title: "Card Game Web Application",
@@ -233,9 +231,9 @@ export const projects: Project[] = [
       "Collaborated in a team of 6 to design and develop a full-stack card game web app featuring Blackjack and Solitaire. Built using MVC architecture and SOLID principles for modular design, developed in an Agile environment with Scrum, sprint planning, and Git/GitHub version control.",
   },
   {
-    title: "This Website",
+    title: "Personal Website",
     tech: ["Next.js", "TypeScript", "Framer Motion", "Gemini API"],
     description:
-      "Designed and built from scratch — editorial dark design, scroll-driven animation, a self-hosted gameplay video pipeline, and an AI assistant that answers questions about me through a streaming Next.js API route with prompt guardrails and rate limiting. You're looking at it.",
+      "A personal portfolio site designed and built from scratch with Next.js and TypeScript. Every section is driven by a single content file, with a fixed top navigation, scroll-triggered animation, and a self-hosted video clip on the featured project. It also includes an AI assistant that answers visitors' questions about my background, streaming responses from the Gemini API through a server-side route with rate limiting and prompt guardrails.",
   },
 ];

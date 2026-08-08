@@ -6,7 +6,7 @@ export default function SkillsSection() {
   return (
     <section className="section" id="skills">
       <Reveal>
-        <SectionHeader number="04" title="Skills" />
+        <SectionHeader title="Skills" />
       </Reveal>
       <div>
         {skillGroups.map((group, i) => (

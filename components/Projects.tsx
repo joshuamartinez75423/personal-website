@@ -6,7 +6,7 @@ export default function Projects() {
   return (
     <section className="section" id="projects">
       <Reveal>
-        <SectionHeader number="03" title="Projects" />
+        <SectionHeader title="Projects" />
       </Reveal>
       <div>
         {projects.map((project, i) => (
