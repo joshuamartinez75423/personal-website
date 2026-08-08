@@ -5,7 +5,7 @@ import SectionHeader from "./SectionHeader";
 
 export default function ExperienceSection() {
   return (
-    <section className="section" id="experience">
+    <section className="section section--timeline" id="experience">
       <Reveal>
         <SectionHeader title="Experience" />
       </Reveal>

@@ -10,7 +10,7 @@
   --surface: rgba(255, 255, 255, 0.04);
   --surface-hover: rgba(255, 255, 255, 0.07);
   --border: rgba(255, 255, 255, 0.11);
-  --text-muted: #93a1b4;
+  --text-muted: #a3aec0;
   --blue-soft: #8fb8e8;
   /* 10% — amber accent (interactive & alive moments only) */
   --accent: #f5a524;
@@ -31,11 +31,35 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
+  /* Text face by default; display strings opt back into Clash below. */
   font-family:
-    var(--font-clash), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+}
+
+/* Clash Display earns its keep on headings and short display strings —
+   anywhere the letterforms are the point and nobody has to read a
+   paragraph of them.
+
+   Deliberately NOT setting -webkit-font-smoothing: antialiased here. On
+   macOS it thins glyphs, which is the opposite of what light text on a
+   dark background needs. */
+.hero-name,
+.section-title,
+.topbar-name,
+.topbar-link,
+.tl-company,
+.tl-role,
+.proj-title,
+.proj-tech,
+.skills-cat,
+.skills-item,
+.edu-school,
+.featured-name,
+.featured-subhead,
+.notfound-code {
+  font-family: var(--font-clash), "Segoe UI", Arial, sans-serif;
 }
 
 a {
@@ -160,15 +184,22 @@ a {
 /* ---------- Layout ---------- */
 
 .section {
-  max-width: 960px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 6rem 1.5rem;
+  padding: 4.25rem 1.5rem;
+}
+
+/* The timeline's rail sits at a fixed offset and its highlights are capped
+   at a readable measure, so extra width would only stretch whitespace.
+   Experience keeps the original column. */
+.section--timeline {
+  max-width: 960px;
 }
 
 .section-head {
   border-bottom: 1px solid var(--border);
   padding-bottom: 1.1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2.25rem;
 }
 
 .section-title {
@@ -802,8 +833,8 @@ section[id] {
 }
 
 .exp-highlights li {
-  font-size: 0.95rem;
-  font-weight: 300;
+  font-size: 0.97rem;
+  font-weight: 400;
   color: var(--text-muted);
   line-height: 1.7;
 }
@@ -834,12 +865,25 @@ section[id] {
 
 /* ---------- Projects (editorial) ---------- */
 
-.proj-entry {
-  padding: 2.25rem 0;
+/* Two columns so the extra page width shortens the section instead of
+   lengthening it. Each entry carries its own top rule — in a grid, an
+   adjacent-sibling border would land on the top-right cell but not the
+   top-left one. */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 3.5rem;
 }
 
-.proj-entry + .proj-entry {
+.proj-entry {
+  padding: 1.9rem 0 2.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+@media (max-width: 860px) {
+  .proj-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .proj-title {
@@ -859,7 +903,7 @@ section[id] {
 .proj-desc {
   margin-top: 0.9rem;
   font-size: 0.98rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-muted);
   line-height: 1.75;
   max-width: 68ch;
@@ -885,13 +929,15 @@ section[id] {
 .featured-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 2rem;
+  gap: 2.75rem;
   align-items: start;
 }
 
+/* Not sticky: with the overview and tech list sitting under the video the
+   two columns run to similar heights, so there's nothing to scroll past. */
 .featured-video-pane {
-  position: sticky;
-  top: 5.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .featured-video {
@@ -938,6 +984,7 @@ section[id] {
 }
 
 .featured-overview {
+  margin-top: 1.35rem;
   color: var(--text-muted);
   line-height: 1.7;
 }
@@ -946,6 +993,11 @@ section[id] {
   font-size: 1rem;
   font-weight: 600;
   margin-top: 0.75rem;
+}
+
+/* The body column now opens on a subhead — no leading offset needed. */
+.featured-body > .featured-subhead:first-child {
+  margin-top: 0;
 }
 
 .featured-list {
@@ -961,17 +1013,14 @@ section[id] {
   line-height: 1.6;
 }
 
-.featured-body .proj-tech {
-  margin-top: 1.25rem;
+.featured-video-pane .proj-tech {
+  margin-top: 1.1rem;
 }
 
 @media (max-width: 900px) {
   .featured-grid {
     grid-template-columns: 1fr;
-  }
-
-  .featured-video-pane {
-    position: static;
+    gap: 2rem;
   }
 }
 
@@ -1056,7 +1105,7 @@ section[id] {
 .edu-degree {
   margin-top: 0.35rem;
   font-size: 1rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text-muted);
 }
 
@@ -1080,7 +1129,7 @@ section[id] {
 
 .edu-inv-list li {
   font-size: 0.98rem;
-  font-weight: 300;
+  font-weight: 400;
   color: var(--text);
   line-height: 1.6;
 }

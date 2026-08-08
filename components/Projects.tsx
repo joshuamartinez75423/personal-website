@@ -8,7 +8,7 @@ export default function Projects() {
       <Reveal>
         <SectionHeader title="Projects" />
       </Reveal>
-      <div>
+      <div className="proj-grid">
         {projects.map((project, i) => (
           <Reveal key={project.title} delay={i * 0.08}>
             <article className="proj-entry">

@@ -1,12 +1,27 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 
+/** Display face: headings, the wordmark, and other short display strings. */
 const clashDisplay = localFont({
   src: "./fonts/ClashDisplay-Variable.woff2",
   weight: "200 700",
   display: "swap",
   variable: "--font-clash",
+});
+
+/**
+ * Text face for body copy. Clash Display is built for headlines — its tight
+ * spacing and low x-height make sustained reading tiring at ~15px, which no
+ * amount of contrast fixes. Inter is designed for exactly this job.
+ * next/font downloads and self-hosts it at build time, so there's no
+ * external request at runtime.
+ */
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
 });
 
 /**
@@ -57,7 +72,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={clashDisplay.variable}>
+    <html lang="en" className={`${clashDisplay.variable} ${inter.variable}`}>
       <body>{children}</body>
     </html>
   );

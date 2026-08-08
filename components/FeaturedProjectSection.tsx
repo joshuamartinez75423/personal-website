@@ -35,13 +35,17 @@ export default function FeaturedProjectSection() {
             >
               Watch the full demo with sound ↗
             </a>
+
+            {/* The overview and tech list live under the video rather than
+                in the body column: they balance the two column heights, so
+                the video column doesn't trail off into empty space. */}
+            <p className="featured-overview">{overview}</p>
+            <p className="proj-tech">{tech.join(" / ")}</p>
           </div>
         </Reveal>
 
         <Reveal delay={0.1}>
           <div className="featured-body">
-            <p className="featured-overview">{overview}</p>
-
             <h4 className="featured-subhead">What I did</h4>
             <ul className="featured-list">
               {contributions.map((item) => (
@@ -55,8 +59,6 @@ export default function FeaturedProjectSection() {
                 <li key={item}>{item}</li>
               ))}
             </ul>
-
-            <p className="proj-tech">{tech.join(" / ")}</p>
           </div>
         </Reveal>
       </div>
