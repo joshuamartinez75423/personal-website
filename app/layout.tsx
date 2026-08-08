@@ -9,9 +9,28 @@ const clashDisplay = localFont({
   variable: "--font-clash",
 });
 
+/**
+ * Absolute base for OG/Twitter image URLs — without it, social previews
+ * get relative paths and render blank. Resolved in priority order:
+ *
+ *   1. NEXT_PUBLIC_SITE_URL — set this once a custom domain is attached.
+ *   2. VERCEL_PROJECT_PRODUCTION_URL — the project's stable production
+ *      domain, so production previews don't point at a one-off deploy.
+ *   3. VERCEL_URL — the per-deployment host, which is what preview builds get.
+ *   4. localhost for `next dev`.
+ *
+ * Vercel's variables carry no protocol, hence the https:// prefix.
+ */
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000");
+
 export const metadata: Metadata = {
-  // TODO: set metadataBase to the real domain at deploy time, e.g.
-  // metadataBase: new URL("https://joshuamartinez.dev"),
+  metadataBase: new URL(siteUrl),
   title: "Joshua Martinez",
   description:
     "Personal portfolio of Joshua Martinez — Computer Science student at the University of Nebraska-Lincoln. Ask his AI assistant anything.",
