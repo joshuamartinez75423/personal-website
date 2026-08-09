@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 /** Display face: headings, the wordmark, and other short display strings. */
@@ -73,7 +74,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${clashDisplay.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
