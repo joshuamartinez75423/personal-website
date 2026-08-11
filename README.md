@@ -2,6 +2,8 @@
 
 Personal portfolio built with Next.js (App Router), TypeScript, and Framer Motion.
 
+[Visit my website](https://martinezjoshua.com)
+
 ## Getting started
 
 ```bash
