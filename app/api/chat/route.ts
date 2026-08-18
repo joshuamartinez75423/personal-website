@@ -49,6 +49,17 @@ function validateMessages(body: unknown): ChatMessage[] | null {
 }
 
 export async function POST(req: Request) {
+  // Fail loudly on a misconfigured environment — without this the SDK falls
+  // through to Google's default credentials and the error is indistinguishable
+  // from a model or network failure.
+  if (!process.env.GEMINI_API_KEY) {
+    console.error("GEMINI_API_KEY is not set.");
+    return Response.json(
+      { error: "The assistant is not configured. GEMINI_API_KEY is missing." },
+      { status: 500 }
+    );
+  }
+
   const ip =
     req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (isRateLimited(ip)) {
