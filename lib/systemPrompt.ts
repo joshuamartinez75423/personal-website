@@ -61,7 +61,7 @@ function formatSkills(): string {
 
 function formatEducation(): string {
   return [
-    `${education.school} — ${education.degree} (${education.graduation})`,
+    `${education.school} — ${education.degree}`,
     ...education.details.map((d) => `  - ${d}`),
     `Involvement:`,
     ...education.involvement.map((i) => `  - ${i}`),

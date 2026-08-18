@@ -19,7 +19,6 @@ export type SkillGroup = {
 export type Education = {
   school: string;
   degree: string;
-  graduation: string;
   details: string[];
   involvement: string[];
 };
@@ -164,7 +163,6 @@ export const skillGroups: SkillGroup[] = [
 export const education: Education = {
   school: "University of Nebraska–Lincoln",
   degree: "B.S. in Computer Science, Minor in Business",
-  graduation: "Expected May 2027",
   details: ["GPA: 3.48 / 4.00", "Dean's List (2×)"],
   involvement: [
     "Peter Kiewit Engineering Academy (selective admission, ~30 students/year)",

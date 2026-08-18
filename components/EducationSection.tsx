@@ -24,9 +24,6 @@ export default function EducationSection() {
               <p className="edu-degree">{education.degree}</p>
             </div>
           </div>
-          <div className="exp-meta">
-            <span>{education.graduation}</span>
-          </div>
         </div>
         <p className="edu-stats">{education.details.join("  ·  ")}</p>
         <div className="skills-row edu-involvement">
